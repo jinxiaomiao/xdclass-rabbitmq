@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+#消息队列
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /dev
+    password: guest
+    username: guest
+
+    #开启消息二次确认，生产者到交换机
+    publisher-confirm-type: correlated
+
+    #开启消息二次确认，交换机到消息队列的可靠性投递
+    publisher-returns: true
+    #为true,则交换机处理消息到路由失败，则会返回给生产者
+    template:
+      mandatory: true
+
+    #开启手动确认消息，如果消息重新入队，进行重试
+    listener:
+      simple:
+        acknowledge-mode: manual
+
